@@ -1,0 +1,509 @@
+openapi: 3.0.0
+info:
+  title: PetSitter API
+  version: "0.1"
+tags:
+  - name: Users
+    description: User-related operations
+  - name: Jobs
+    description: Job-related operations
+paths:
+  /users:
+    post:
+      tags:
+      - Users
+      summary: Register User
+      operationId: registerUser
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      security: []
+  /users/{id}:
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      tags:
+      - Users
+      summary: View User
+      operationId: viewUserWithId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      tags:
+      - Users
+      summary: Modify User
+      operationId: modifyUserWithId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+    delete:
+      tags:
+      - Users
+      summary: Delete User
+      operationId: deleteUserWithId
+      responses:
+        '204':
+          description: No Content
+  /jobs:
+    post:
+      tags:
+      - Jobs
+      summary: Create Job
+      operationId: createJob
+      responses:
+        '201': 
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+        '400': 
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OASError' 
+        '401': 
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OASError' 
+        '403': 
+          description: Forbidden
+          content:
+            application/problem+json: 
+              schema:
+                $ref: '#/components/schemas/Problem' 
+    get:
+      tags:
+      - Jobs
+      summary: List/Search Available Jobs
+      operationId: listOrSearchAvailableJobs
+      parameters:
+      - name: start_time_before
+        in: query
+        description: Search jobs starting before this date and time.
+        schema:
+          type: string
+          format: date-time
+      - name: start_time_after
+        in: query
+        description: Search jobs starting after this date and time.
+        schema:
+          type: string
+          format: date-time
+      - name: end_time_before
+        in: query
+        description: Search jobs ending before this date and time.
+        schema:
+          type: string
+          format: date-time
+      - name: end_time_after
+        in: query
+        description: Search jobs ending after this date and time.
+        schema:
+          type: string
+          format: date-time
+      - name: activity
+        in: query
+        description: Performs a full-text search for the phrase entered in job activities.
+        schema:
+          type: string
+      - name: pets
+        in: query
+        description: Searches for pets matching specific criteria.
+        style: deepObject
+        schema:
+          type: object
+          properties:
+            age_below:
+              type: integer
+              description: Return only pets with this age or younger.
+            age_above:
+              type: integer
+              description: Return only pets with this age or older.
+            species:
+              type: string
+              description: Return only pets with this species. Provide multiple species as comma-separated values.
+      - name: limit
+        in: query
+        description: The maximum number of results to return.
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+      - name: cursor
+        in: query
+        description: Use the cursor from the response to access more results.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: |
+          Indicate the sorting key and direction for the results.
+          Use the field name, suffixed with ":asc" for ascending
+          or ":desc" for descending order.
+          Valid fields: start_time, end_time
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+                  cursor:
+                    type: string
+                    description: Cursor for the next result page.
+                    nullable: true
+  /jobs/{id}:
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      tags:
+      - Jobs
+      summary: View Job
+      operationId: viewJobWithId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+    put:
+      tags:
+      - Jobs
+      summary: Modify Job
+      operationId: modifyJobWithId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+    delete:
+      tags:
+      - Jobs
+      summary: Delete Job
+      operationId: deleteJobWithId
+      responses:
+        '204':
+          description: No Content
+  /jobs/{id}/job-applications:
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      tags:
+      - Jobs
+      summary: List Applications For Job
+      operationId: viewApplicationsForJob
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobApplication'
+    post:
+      tags:
+      - Jobs
+      summary: Create Job Application
+      operationId: createJobApplication
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+  /users/{id}/jobs:
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      tags:
+      - Users
+      summary: List Jobs For User
+      operationId: listJobsForUser
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+  /users/{id}/job-applications:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+      - Users
+      summary: List Applications For User
+      operationId: viewApplicationsForUser
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobApplication'
+  /job-applications/{id}:
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    put:
+      tags:
+      - Jobs
+      summary: Modify Job Application
+      operationId: modifyJobApplicationWithId
+      requestBody:
+        description: Update the application details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobApplication'
+  /sessions:
+    post:
+      tags:
+      - Users
+      summary: Start Session (Login)
+      operationId: startSession
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      security: []
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        full_name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+        creator_user_id:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+        activity:
+          type: string
+        pets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pet'
+    Dog:
+      type: object
+      properties:
+        species:
+          type: string
+        breed:
+          type: string
+        size:
+          type: string
+      required:
+        - species
+    Cat:
+      type: object
+      properties:
+        species:
+          type: string
+        breed:
+          type: string
+      required:
+        - species
+    Pet:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+            age:
+              type: integer
+        - oneOf:
+            - $ref: '#/components/schemas/Cat'
+            - $ref: '#/components/schemas/Dog'
+          discriminator:
+            propertyName: species
+            mapping:
+              Cat: '#/components/schemas/Cat'
+              Dog: '#/components/schemas/Dog'
+    JobApplication:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        user_id:
+          type: string
+        job_id:
+          type: string
+    Session:
+      type: object
+      properties:
+        user_id:
+          type: string
+        auth_header:
+          type: string
+    OASError: 
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                description: For input validation errors, identifies where in the JSON request body the error occured
+              message:
+                type: string
+                description: Human-readable error message
+              errorCode:
+                type: string
+                description: Code indicating error type
+    Problem: 
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI indicating error type
+        title:
+          type: string
+          description: Human-readable error title
+        status:
+          type: integer
+          description: HTTP status code
+        detail:
+          type: string
+          description: Human-readable error details
+        instance:
+          type: string
+          description: URI indicating error instance
+  securitySchemes:
+    SessionToken:
+      type: apiKey
+      in: header
+      name: Authorization
+security:
+  - SessionToken: []
