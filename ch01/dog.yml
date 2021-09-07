@@ -1,0 +1,33 @@
+openapi: 3.0.3
+info:
+  title: Dog API
+  version: '1.0.0'
+servers:
+- url: https://dog.ceo/api
+paths:
+  /breed/{breedName}/images:
+    get:
+      description: Get images of dog breeds
+      parameters:
+      - in: path
+        name: breedName
+        schema:
+          type: string
+          example: hound
+        required: true
+      responses:
+        '200':
+          description: A list of dog images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      example: https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg
