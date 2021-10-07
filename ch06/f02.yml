@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  version: v1
+  title: FarmtStall API
+
+servers:
+- url: https://farmstall.designapis.com/v1
+
+paths:
+  /reviews:
+    post:
+      description: Create a new Review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+      responses:
+        '201':
+          description: Successfully created a new Review
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  rating:
+                    type: integer
+                    minimum: 1
+                    maximum: 5
+                  userId:
+                    type: string
+                    nullable: true
+                    pattern: '[a-zA-Z-.0-9]{36}'
+                  uuid:
+                    type: string
+                    pattern: '[a-zA-Z-.0-9]{36}'
+  /reviews/{reviewId}:
+    get:
+      description: Get a single review
+      parameters:
+      - name: reviewId
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 36
+          maxLength: 36
+          pattern: '[a-zA-Z0-9-]+'
+      responses:
+        '200':
+          description: A single review
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  rating:
+                    type: integer
+                    minimum: 1
+                    maximum: 5
+                  userId:
+                    minLength: 36
+                    maxLength: 36
+                    pattern: '^[a-zA-Z0-9-]+$'
+                    nullable: true
+                  uuid:
+                    minLength: 36
+                    maxLength: 36
+                    pattern: '^[a-zA-Z0-9-]+$'
