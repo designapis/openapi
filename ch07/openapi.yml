@@ -41,6 +41,8 @@ paths:
                       example: 3b5b1707-b82c-4b1d-9078-157053902525
     post:
       description: Create a new Review
+      security: 
+      - MyUserToken: []
       requestBody:
         description: A new Review
         content:
@@ -181,3 +183,10 @@ paths:
                 properties:
                   token:
                     type: string
+                    
+components:
+  securitySchemes:
+    MyUserToken:
+      type: apiKey
+      in: header
+      name: Authorization
