@@ -5,21 +5,21 @@ info:
   description: |-
     An API for writing reviews about your favourite ( or worst ) farm stalls.
 
-    ![Picture of produce](produce-banner.jpg)
+    ![Picture of produce](https://farmstall.designapis.com/img/produce-banner.jpg)
 
     ---
 
     # Auth
 
-    With a *User* account ( see [POST Users](#Users/post_users) ) you can then get a **UserToken** from the [POST /tokens](#Users/post_tokens) operation. <br/>
-    The **UserToken** token must be set in the `Authorization` header when an operation requires any user based authorization.
+    With a *User* account ( see [POST Users](#Users/post_users) ) you can then get a **MyUserToken** from the [POST /tokens](#Users/post_tokens) operation. <br/>
+    The **MyUserToken** token must be set in the `Authorization` header when an operation requires any user based authorization.
 
     # Reviews
     Reviews are the heart of this API. <br/>
     Registered **Users** and anonymous users can both write reviews based on their experience at farm stalls. <br/>
     Both positive and negative reviews are encouraged to better the experience of others.
 
-    When creating a review, if the `Authorization` is set with the **UserToken** then the review will be created as that user. <br/>
+    When creating a review, if the `Authorization` is set with the **MyUserToken** then the review will be created as that user. <br/>
     Otherwise the review will be created anonymously.
 
     #### Details
@@ -37,9 +37,9 @@ info:
 
     |                  Message | Rating | User        |
     |-------------------------|:-------|-------------|
-    | A wonderful time!        | ![5 stars](rating-5.png)      | Bob McNally |
-    | An awful place           | ![1 star](rating-1.png)      | _Anonymous_  |
-    | A totally average place. | ![3 stars](rating-3.png)      | Jane Fair   |
+    | A wonderful time!        | ![5 stars](https://farmstall.designapis.com/img/rating-5.png)      | Bob McNally |
+    | An awful place           | ![1 star](https://farmstall.designapis.com/img/rating-1.png)      | _Anonymous_  |
+    | A totally average place. | ![3 stars](https://farmstall.designapis.com/img/rating-3.png)      | Jane Fair   |
 
     ---
 
