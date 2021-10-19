@@ -107,7 +107,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: 3b5b1707-b82c-4b1d-9078-157053902525
+                    example: An awesome time for the whole family.
                   rating:
                     type: integer
                     example: 5
