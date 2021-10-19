@@ -3,7 +3,8 @@ info:
   version: v1
   title: FarmStall API
   description: |-
-    An API for writing reviews about your favourite ( or worst ) farm stalls.
+
+    An API for writing reviews about your favourite (or worst) farm stalls.
 
     ![Picture of produce](https://farmstall.designapis.com/img/produce-banner.jpg)
 
@@ -11,23 +12,17 @@ info:
 
     # Auth
 
-    With a *User* account ( see [POST Users](#Users/post_users) ) you can then get a **MyUserToken** from the [POST /tokens](#Users/post_tokens) operation. <br/>
-    The **MyUserToken** token must be set in the `Authorization` header when an operation requires any user based authorization.
+    To create **Reviews** without being _anonymous_. You need to add a **MyUserToken** to the `Authorization` header.
+
+    To get a **MyUserToken**:
+    1. Create a **User** with [POST /users](#Users/post_users)
+    1. Get a **MyUserToken** by calling [POST /tokens](#Users/post_tokens) with your **User** credentials.
 
     # Reviews
     Reviews are the heart of this API. <br/>
     Registered **Users** and anonymous users can both write reviews based on their experience at farm stalls. <br/>
-    Both positive and negative reviews are encouraged to better the experience of others.
 
-    When creating a review, if the `Authorization` is set with the **MyUserToken** then the review will be created as that user. <br/>
-    Otherwise the review will be created anonymously.
-
-    #### Details
-
-    Reviews have simple messages that can relate how the experience was. <br/>
-    And UserId references the author of the review. Can be anonymous.
-
-    Each review comes with a rating of between one and five stars inclusive. <br/>
+    Each review comes with a rating of between one and five stars inclusive.
 
     - One star being the worst experience
     - Five stars being the best
@@ -35,13 +30,17 @@ info:
 
     ### Example Reviews
 
-    |                  Message | Rating | User        |
-    |-------------------------|:-------|-------------|
-    | A wonderful time!        | ![5 stars](https://farmstall.designapis.com/img/rating-5.png)      | Bob McNally |
-    | An awful place           | ![1 star](https://farmstall.designapis.com/img/rating-1.png)      | _Anonymous_  |
-    | A totally average place. | ![3 stars](https://farmstall.designapis.com/img/rating-3.png)      | Jane Fair   |
+      "A wonderful time!" &mdash; Bob McNally
+      <br/>
+      ![5 stars](https://farmstall.designapis.com/img/rating-5.png)
 
-    ---
+      "An awful place" &mdash; _Anonymous_
+      <br/>
+      ![1 star](https://farmstall.designapis.com/img/rating-1.png)
+
+      "A totally average place." &mdash; Jane Fair
+      <br/>
+      ![3 stars](https://farmstall.designapis.com/img/rating-3.png)
 
   contact:
     name: Josh Ponelat
