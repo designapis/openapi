@@ -1,0 +1,48 @@
+openapi: 3.0.3
+info:
+  version: v1
+  title: FarmStall API
+  description: |-
+    *\*italic\**
+    
+    
+    **\*\*bold\*\***
+    
+    
+    _\_Mix of italic and **\*\*bold\*\***\__
+    
+    > \> Block quote
+    
+    # \# Heading 1
+    
+    
+    ## \#\# Heading 2
+    
+    
+    ### \#\#\# Heading 3
+    
+    [\[A link\]\(https://example.com\)]()
+    
+
+    \![An image]\(/img/rating-5.png)
+    ![](https://farmstall.designapis.com/img/rating-5.png)
+  
+    \* unordered list </br>
+    \* two </br>
+    \* three </br>
+    
+    1\. numbered list </br>
+    1\. two </br>
+    1\. three
+    
+    \--- (horizontal line)
+    
+    ---
+    
+    
+        ``` 
+        A code block
+        ```
+
+
+paths: {}
