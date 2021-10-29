@@ -1,0 +1,22 @@
+openapi: 3.0.3
+info:
+  title: PetSitter API
+  version: "0.1"
+paths: {}
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        password:
+          type: string
+        full_name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
