@@ -195,9 +195,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/JobApplication'
+                $ref: '#/components/schemas/JobApplication'
 components:
   schemas:
     User:
