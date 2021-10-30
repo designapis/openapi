@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: Tiny API
+  version: "1.0.0"
+paths:
+  /:
+    get:
+      description: Simple get
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              examples:
+                one:
+                  value:
+                    one: 1
+                two:
+                  value:
+                    two: 2
+              schema:
+                type: object
+        '404':
+          description: Created
+          content:
+            application/json:
+              examples:
+                error:
+                  value:
+                    code: e404
