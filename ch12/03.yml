@@ -3,12 +3,12 @@ info:
   title: Tiny API
   version: "1.0.0"
 paths:
-  /:
+  /foo:
     get:
       description: Simple get
       responses:
         '200':
-          description: Created
+          description: Get Foo
           content:
             application/json:
               examples:
@@ -21,7 +21,7 @@ paths:
               schema:
                 type: object
         '404':
-          description: Created
+          description: No Foo
           content:
             application/json:
               examples:
