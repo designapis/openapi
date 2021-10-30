@@ -1,0 +1,288 @@
+openapi: 3.0.3
+info:
+  title: PetSitter API
+  version: "0.1" 
+paths:
+  /users:
+    post:
+      summary: Register User
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+  /users/{id}:
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: View User
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Modify User
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+    delete:
+      summary: Delete User
+      responses:
+        '204':
+          description: No Content
+  /jobs:
+    post:
+      summary: Create Job
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+    get:
+      summary: List All Jobs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+              examples:
+                with-some-data:
+                  summary: With some data
+                  value:
+                    items:
+                    - id: 123
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-02T00:00:00Z
+                      dog:
+                        name: Fido
+                        age: 3
+                        breed: Doberman
+                        size: medium
+                      activity: walk
+                    - id: 234
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-03T00:00:00Z
+                      dog:
+                        name: Rex
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: sit
+                    - id: 234
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-02T00:00:00Z
+                      dog:
+                        name: Blossom
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: walk
+
+  /jobs/{id}:
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: View Job
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+    put:
+      summary: Modify Job
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+    delete:
+      summary: Delete Job
+      responses:
+        '204':
+          description: No Content
+  /jobs/{id}/job-applications:
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: List Applications For Job
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobApplication'
+    post:
+      summary: Create Job Application
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+  /users/{id}/jobs:
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: List Jobs For User
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+  /job-applications/{id}:
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    put:
+      summary: Modify Job Application
+      requestBody:
+        description: Update the application details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobApplication'
+      
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobApplication'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        password:
+          type: string
+        full_name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+        creator_user_id:
+          type: integer
+        start_time:
+          type: string
+        end_time:
+          type: string
+        activity:
+          type: string
+        dog:
+          $ref: '#/components/schemas/Dog'
+    Dog:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        breed:
+          type: string
+        size:
+          type: string
+    JobApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        user_id:
+          type: integer
+        job_id:
+          type: integer
