@@ -14,10 +14,10 @@ paths:
               examples:
                 one:
                   value:
-                    one: 1
+                    foo: 1
                 two:
                   value:
-                    two: 2
+                    foo: 2
               schema:
                 type: object
         '404':
