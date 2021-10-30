@@ -27,4 +27,4 @@ paths:
               examples:
                 error:
                   value:
-                    code: e404
+                    msg: I am an error example
