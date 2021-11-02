@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: PetSitter API
-  version: ch13-tags
+  version: "0.1"
 tags:
   - name: Users
     description: User-related operations
