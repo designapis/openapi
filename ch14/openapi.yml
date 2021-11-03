@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   title: PetSitter API
   version: "0.1"
@@ -106,6 +106,41 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Job'
+              examples:
+                with-some-data:
+                  summary: With some data
+                  value:
+                    items:
+                    - id: 123
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-02T00:00:00Z
+                      dog:
+                        name: Fido
+                        age: 3
+                        breed: Doberman
+                        size: medium
+                      activity: walk
+                    - id: 234
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-03T00:00:00Z
+                      dog:
+                        name: Rex
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: sit
+                    - id: 234
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-02T00:00:00Z
+                      dog:
+                        name: Blossom
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: walk
   /jobs/{id}:
     parameters:
       - schema:
@@ -232,6 +267,187 @@ paths:
           description: OK
           content:
             application/json:
+              examples:
+                empty:
+                  summary: Zero Job Applications
+                  value:
+                    items: []
+                two-items:
+                  summary: Two Job Applications
+                  value:
+                    items:
+                    - id: 123
+                      user_id: 123
+                      job_id: 123
+                      status: PENDING
+                    - id: 123
+                      user_id: 123
+                      job_id: 123
+                      status: COMPLETE
+                many:
+                  summary: Many Job Applications
+                  value:
+                    items:
+                    - id: 0
+                      user_id: 358
+                      job_id: 4012
+                      status: COMPLETE
+                    - id: 1
+                      user_id: 3089
+                      job_id: 3902
+                      status: PENDING
+                    - id: 2
+                      user_id: 4040
+                      job_id: 5269
+                      status: PENDING
+                    - id: 3
+                      user_id: 5636
+                      job_id: 8420
+                      status: PENDING
+                    - id: 4
+                      user_id: 9540
+                      job_id: 9505
+                      status: COMPLETE
+                    - id: 5
+                      user_id: 9873
+                      job_id: 3215
+                      status: PENDING
+                    - id: 6
+                      user_id: 6032
+                      job_id: 7365
+                      status: COMPLETE
+                    - id: 7
+                      user_id: 5999
+                      job_id: 1159
+                      status: COMPLETE
+                    - id: 8
+                      user_id: 2897
+                      job_id: 7982
+                      status: COMPLETE
+                    - id: 9
+                      user_id: 227
+                      job_id: 9245
+                      status: CANCELLED
+                    - id: 10
+                      user_id: 741
+                      job_id: 2752
+                      status: CANCELLED
+                    - id: 11
+                      user_id: 9059
+                      job_id: 338
+                      status: PENDING
+                    - id: 12
+                      user_id: 1379
+                      job_id: 4531
+                      status: COMPLETE
+                    - id: 13
+                      user_id: 2031
+                      job_id: 9375
+                      status: COMPLETE
+                    - id: 14
+                      user_id: 3643
+                      job_id: 5175
+                      status: CANCELLED
+                    - id: 15
+                      user_id: 5470
+                      job_id: 831
+                      status: CANCELLED
+                    - id: 16
+                      user_id: 3265
+                      job_id: 5597
+                      status: PENDING
+                    - id: 17
+                      user_id: 2815
+                      job_id: 7719
+                      status: PENDING
+                    - id: 18
+                      user_id: 8306
+                      job_id: 679
+                      status: PENDING
+                    - id: 19
+                      user_id: 9742
+                      job_id: 8239
+                      status: PENDING
+                    - id: 20
+                      user_id: 4851
+                      job_id: 940
+                      status: PENDING
+                    - id: 21
+                      user_id: 6700
+                      job_id: 4040
+                      status: PENDING
+                    - id: 22
+                      user_id: 7067
+                      job_id: 6016
+                      status: PENDING
+                    - id: 23
+                      user_id: 3265
+                      job_id: 1822
+                      status: PENDING
+                    - id: 24
+                      user_id: 8333
+                      job_id: 9988
+                      status: PENDING
+                    - id: 25
+                      user_id: 7543
+                      job_id: 9307
+                      status: PENDING
+                    - id: 26
+                      user_id: 5429
+                      job_id: 7511
+                      status: COMPLETE
+                    - id: 27
+                      user_id: 3576
+                      job_id: 1710
+                      status: PENDING
+                    - id: 28
+                      user_id: 590
+                      job_id: 2634
+                      status: COMPLETE
+                    - id: 29
+                      user_id: 2327
+                      job_id: 7205
+                      status: CANCELLED
+                    - id: 30
+                      user_id: 2193
+                      job_id: 7421
+                      status: COMPLETE
+                    - id: 31
+                      user_id: 5014
+                      job_id: 6781
+                      status: CANCELLED
+                    - id: 32
+                      user_id: 9216
+                      job_id: 8047
+                      status: COMPLETE
+                    - id: 33
+                      user_id: 3369
+                      job_id: 7438
+                      status: CANCELLED
+                    - id: 34
+                      user_id: 9825
+                      job_id: 6758
+                      status: PENDING
+                    - id: 35
+                      user_id: 3250
+                      job_id: 7760
+                      status: COMPLETE
+                    - id: 36
+                      user_id: 1552
+                      job_id: 4030
+                      status: COMPLETE
+                    - id: 37
+                      user_id: 9221
+                      job_id: 3971
+                      status: CANCELLED
+                    - id: 38
+                      user_id: 6816
+                      job_id: 7878
+                      status: PENDING
+                    - id: 39
+                      user_id: 6109
+                      job_id: 4060
+                      status: CANCELLED
               schema:
                 type: object
                 properties:
