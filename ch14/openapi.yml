@@ -7,6 +7,8 @@ tags:
     description: User-related operations
   - name: Jobs
     description: Job-related operations
+servers:
+- url: /api
 paths:
   /users:
     post:
