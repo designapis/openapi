@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: UserAccount API
+  description: For users
+  version: 1.0.0
+tags:
+  - name: User
+    description: User related operations
+servers:
+  - url: https://example.com
+paths:
+  /users/{id}:
+    put:
+      summary: Modify user
+      description: |
+        Modify the user and return `updated_at`.
+        
+        Needs **Authentication**!
+      operationId: modifyUser
+      tags:
+      - User
+      security:
+      - MyToken: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        schema:
+          type: string
+          enum:
+          - admin
+          - member
+          default: member
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/Employee'
+              - $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '403': 
+          description: Forbidden
+          content:
+            application/problem+json: 
+              schema:
+                $ref: '#/components/schemas/Error' 
+components:
+  securitySchemes:
+    MyToken:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    User:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: string
+          readOnly: true 
+        name:
+          type: string
+        password:
+          type: string
+          format: password 
+          writeOnly: true 
+    Employee:
+      allOf: 
+      - $ref: '#/components/schemas/User'
+      - type: object
+        required:
+        - employee_id
+        properties:
+          employee_id:
+            type: string
+    Customer:
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - type: object
+        properties:
+          sales_rep_id:
+            type: string
+    Error: 
+      type: object
+      properties:
+        title:
+          type: string
+          description: Error title
