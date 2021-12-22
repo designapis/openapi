@@ -7,8 +7,6 @@ tags:
     description: User-related operations
   - name: Jobs
     description: Job-related operations
-servers:
-- url: /api
 paths:
   /users:
     post:
@@ -28,7 +26,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-      security: []
   /users/{id}:
     parameters:
       - schema:
@@ -441,10 +438,7 @@ paths:
       schema:
         type: integer
     get:
-      tags:
-      - Users
       summary: List Applications For User
-      operationId: viewApplicationsForUser
       responses:
         '200':
           description: OK
@@ -663,30 +657,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobApplication'
-  /sessions:
-    post:
-      tags:
-      - Users
-      summary: Start Session (Login)
-      operationId: startSession
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Session'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-      security: []
 components:
   schemas:
     User:
@@ -741,17 +711,3 @@ components:
           type: string
         job_id:
           type: string
-    Session:
-      type: object
-      properties:
-        user_id:
-          type: string
-        auth_header:
-          type: string
-  securitySchemes:
-    SessionToken:
-      type: apiKey
-      in: header
-      name: Authorization
-security:
-  - SessionToken: []
