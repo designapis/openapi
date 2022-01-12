@@ -433,6 +433,12 @@ components:
           maxItems: 10
           items:
             $ref: '#/components/schemas/Pet'
+       required:
+       - id
+       - creator_user_id
+       - start_time
+       - end_time
+       - pets
     Dog:
       type: object
       properties:
@@ -491,7 +497,12 @@ components:
           readOnly: true 
         job_id:
           type: string
-          readOnly: true 
+          readOnly: true
+        required:
+        - id
+        - status
+        - user_id
+        - job_id
     Session:
       type: object
       properties:
