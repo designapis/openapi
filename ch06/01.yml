@@ -35,7 +35,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: An awesome time for the whole family.
                   rating:
                     type: integer
                     minimum: 1
