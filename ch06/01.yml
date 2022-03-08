@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  version: v1
+  title: FarmStall API
+servers:
+- url: https://farmstall.designapis.com/v1
+paths:
+  /reviews:
+    post:
+      description: Create a new Review
+      requestBody:
+        description: A new Review
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                userId:
+                  type: string
+                  pattern: '^[0-9a-fA-F\-]{36}$'
+                  nullable: true
+      responses:
+        '201':
+          description: Successfully created a new Review
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: An awesome time for the whole family.
+                  rating:
+                    type: integer
+                    minimum: 1
+                    maximum: 5
+                  userId:
+                    type: string
+                    nullable: true
+                    pattern: '^[0-9a-fA-F\-]{36}$'
+                  uuid:
+                    type: string
+                    pattern: '^[0-9a-fA-F\-]{36}$'
+ 
