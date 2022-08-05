@@ -207,6 +207,12 @@ paths:
                   uuid:
                     type: string
                     example: f7f680a8-d111-421f-b6b3-493ebf905078
+                    minLength: 36
+                    maxLength: 36
+                    pattern: '[a-zA-Z0-9-]+'
+                  fullName:
+                    type: string
+                    example: Josh Ponelat
   /tokens:
     post: 
       description: Create a new token
